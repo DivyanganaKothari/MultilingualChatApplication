@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">MyApplication</string>
+    <string name="click_here">MyApplication</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Contacts</string>
+    <string name="title_dashboard">Chats</string>
+    <string name="title_notifications">Invites</string>
+    <string name="facebook_app_id">1959754220973449</string>
+    <string name="fb_login_protocol_scheme">fb1959754220973449</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="title_activity_contact">ContactActivity</string>
+    <string name="title_activity_invite">InviteActivity</string>
+    <string name="title_activity_language">LanguageActivity</string>
+    <string name="title_activity_language2">LanguageActivity2</string>
+    <string name="title_activity_contacts">ContactsActivity</string>
+    <string name="ios_app_client_id">ab</string>
+    <string name="Invite">ef</string>
+    <string name="invitation_message">bh</string>
+    <string name="invitation_cta">ct</string>
+    <string name="invitation_title">Invite your friends</string>
+    <string name="title_activity_user_listing">UserListingActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="email">Email Id</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="mail_feedback_email" />
+    <string name="mail_feedback_subject" />
+    <string name="mail_feedback_message" />
+    <string name="title_send_feedback" />
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
