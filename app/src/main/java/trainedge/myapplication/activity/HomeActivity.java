@@ -26,8 +26,7 @@ public class HomeActivity extends BaseActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Intent intent1 = new Intent(HomeActivity.this, ContactsActivity.class);
-                    startActivity(intent1);
+                    s t
                     return true;
                 case R.id.navigation_dashboard:
                     Intent chat = new Intent(HomeActivity.this, ChatActivity.class);

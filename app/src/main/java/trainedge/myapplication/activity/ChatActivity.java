@@ -43,6 +43,7 @@ public class ChatActivity extends AppCompatActivity {
     private List<MessageList> chatList;
     private MessageListAdapter mAdapter;
     private Button btn;
+    private String recName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,8 @@ public class ChatActivity extends AppCompatActivity {
             receiverEmail = getIntent().getStringExtra("email");
             receiver_lang = getIntent().getStringExtra("lang");
             conv_key = getIntent().getStringExtra("conv_key");
+            recName = getIntent().getStringExtra("name");
+            getSupportActionBar().setTitle(recName);
         }
 
         edittext_chatbox = (EditText) findViewById(R.id.edittext_chatbox);
@@ -78,7 +81,8 @@ public class ChatActivity extends AppCompatActivity {
         recyclerview_message_list.setLayoutManager(new LinearLayoutManager(this));
         recyclerview_message_list.setAdapter(mAdapter);
 
-        final long Time = Calendar.getInstance().getTime().getTime();
+
+
 
 
         myContactsDb.addValueEventListener(new ValueEventListener() {
@@ -90,6 +94,8 @@ public class ChatActivity extends AppCompatActivity {
                         chatList.add(snapshot.getValue(MessageList.class));
                     }
                     mAdapter.notifyDataSetChanged();
+                    int size = chatList.size();
+                    recyclerview_message_list.smoothScrollToPosition(size-1);
                 }
             }
 
@@ -101,6 +107,8 @@ public class ChatActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final long Time = Calendar.getInstance().getTime().getTime();
+
                 String content = edittext_chatbox.getText().toString();
                 if (content.isEmpty()) {
                     Toast.makeText(ChatActivity.this, "write something", Toast.LENGTH_SHORT).show();

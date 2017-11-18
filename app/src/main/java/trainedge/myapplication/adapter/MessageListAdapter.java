@@ -1,49 +1,92 @@
 package trainedge.myapplication.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import trainedge.myapplication.R;
 import trainedge.myapplication.activity.ChatActivity;
-import trainedge.myapplication.holder.MessageHolder;
+import trainedge.myapplication.holder.ReceiverHolder;
+import trainedge.myapplication.holder.SenderHolder;
 import trainedge.myapplication.model.MessageList;
 
 /**
  * Created by DIVYANGANA KOTHARI on 26-10-2017.
  */
 
-public class MessageListAdapter extends RecyclerView.Adapter<MessageHolder> {
+public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final List<MessageList> chatList;
     private final ChatActivity chatActivity;
+    private final FirebaseUser user;
+    public int SENDER = 0;
+    public int RECIEVER = 1;
 
     public MessageListAdapter(ChatActivity chatActivity, List<MessageList> chatList) {
         this.chatList = chatList;
         this.chatActivity = chatActivity;
+        user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     @Override
-    public MessageHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.receiver_card,parent,false);
-        return new MessageHolder(v);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View vReceive = LayoutInflater.from(parent.getContext()).inflate(R.layout.receiver_card, parent, false);
+        View vSend = LayoutInflater.from(parent.getContext()).inflate(R.layout.sender_card, parent, false);
+        if (viewType == SENDER) {
+            return new SenderHolder(vSend);
+        }
+        return new ReceiverHolder(vReceive);
     }
 
     @Override
-    public void onBindViewHolder(MessageHolder holder, int position) {
-        MessageList messageList = chatList.get(position);
-        holder.text_message_body.setText(messageList.content);
-        holder.text_message_time.setText(String.valueOf(messageList.Time));
-        holder.image_message_profile.setVisibility(View.GONE);
-        holder.text_message_name.setVisibility(View.GONE);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof SenderHolder){
+            SenderHolder sh= (SenderHolder) holder;
+            MessageList messageList = chatList.get(position);
+            sh.text_message_body.setText(messageList.content);
+            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+            cal.setTimeInMillis(messageList.Time);
+            String date = DateFormat.format("hh:mm", cal).toString();
+            sh.text_message_time.setText(date);
+
+        }else {
+            ReceiverHolder rh= (ReceiverHolder) holder;
+            MessageList messageList = chatList.get(position);
+            rh.text_message_body.setText(messageList.content);
+            rh.text_message_name.setText("");
+            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+            cal.setTimeInMillis(messageList.Time * 1000L);
+            String date = DateFormat.format("dd hh:mm:ss", cal).toString();
+            rh.text_message_time.setText(date);
+
+            Glide.with(chatActivity).load(R.drawable.ic_person_outline_black_24dp).into(rh.image_message_profile);
+
+        }
 
     }
+
 
     @Override
     public int getItemCount() {
         return chatList.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        MessageList msgList = chatList.get(position);
+        if (msgList.Sender_Id.equals(user.getUid())) {
+            return SENDER;
+        }
+        return RECIEVER;
     }
 }

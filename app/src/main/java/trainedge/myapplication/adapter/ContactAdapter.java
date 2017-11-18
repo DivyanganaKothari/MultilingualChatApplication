@@ -59,6 +59,7 @@ public class ContactAdapter extends RecyclerView.Adapter<Contact_Holder> {
                 extras.putString("id",data.id);
                 extras.putString("email",data.email);
                 extras.putString("lang",data.language);
+                extras.putString("name",data.name);
                 intent1.putExtras(extras);
                 ConverstationNodeKey(FirebaseAuth.getInstance().getCurrentUser().getEmail(),data.email,intent1);
 

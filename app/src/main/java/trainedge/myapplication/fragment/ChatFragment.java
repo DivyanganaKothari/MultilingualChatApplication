@@ -3,9 +3,12 @@ package trainedge.myapplication.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import trainedge.myapplication.R;
 
@@ -23,6 +26,9 @@ public class ChatFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private RecyclerView rv_chat;
+    private ImageView iv;
+    private TextView tv_name;
 
 
     public ChatFragment() {
@@ -61,6 +67,10 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
+        rv_chat = view.findViewById(R.id.rv_chat);
+        iv = view.findViewById(R.id.iv);
+        tv_name = view.findViewById(R.id.tv_name);
+
         return view;
     }
 
