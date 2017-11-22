@@ -19,17 +19,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import trainedge.myapplication.R;
 import trainedge.myapplication.adapter.MessageListAdapter;
 import trainedge.myapplication.model.MessageList;
 
 public class ChatActivity extends AppCompatActivity {
 
+    public OkHttpClient client = new OkHttpClient();
     String senderEmail;
     String receiverId;
     String receiverEmail;
@@ -111,6 +119,7 @@ public class ChatActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 final long Time = Calendar.getInstance().getTime().getTime();
 
                 String content = edittext_chatbox.getText().toString();
@@ -124,6 +133,35 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
+
+
+    }
+    /** Translate a given text between a source and a destination language */
+    public String translate(String text,String firstLang,String secondLang) {
+        String translated="";
+        String url = String.format("http://mymemory.translated.net/api/get?q=%s!&langpair=%s|%s", text, firstLang, secondLang);
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        Response response = null;
+        try {
+            response = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            JSONObject jObject = null;
+            jObject = new JSONObject(response.body().string());
+            JSONObject data = jObject.getJSONObject("responseData");
+            //result.setText(data.getString("translatedText"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+
+        }
+        return translated;
     }
 }
 
