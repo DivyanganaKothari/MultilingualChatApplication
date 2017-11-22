@@ -3,6 +3,8 @@ package trainedge.myapplication.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +12,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import trainedge.myapplication.R;
+import trainedge.myapplication.activity.HomeActivity;
+import trainedge.myapplication.adapter.ChatAdapter;
+import trainedge.myapplication.model.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,8 +85,35 @@ public class ChatFragment extends Fragment {
         rv_chat = view.findViewById(R.id.rv_chat);
         iv = view.findViewById(R.id.iv);
         tv_name = view.findViewById(R.id.tv_name);
+        final List<User> chatName=new ArrayList<>();
+        ChatAdapter chatAdapter=new ChatAdapter(chatName,(HomeActivity)getActivity());
+        rv_chat.setLayoutManager(new LinearLayoutManager(getActivity()));
+        RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
+        itemAnimator.setAddDuration(1000);
+        itemAnimator.setRemoveDuration(1000);
+        rv_chat.setItemAnimator(itemAnimator);
+        rv_chat.setAdapter(chatAdapter);
+
 
         return view;
+    }
+    public void findUserById(String uid, final TextView tv_name, final ImageView iv){
+        final DatabaseReference users = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+        users.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+            if(dataSnapshot.hasChildren()){
+                User user = dataSnapshot.getValue(User.class);
+                tv_name.setText(user.name);
+                Glide.with(getActivity()).load(user.photo).into(iv);
+            }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

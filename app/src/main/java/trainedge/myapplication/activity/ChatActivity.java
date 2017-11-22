@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import trainedge.myapplication.R;
@@ -74,7 +75,10 @@ public class ChatActivity extends AppCompatActivity {
         senderId = currentuser.getUid();
         senderEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         sender_lang = lang_pref.getString("lang_key", "");
-
+        HashMap<String, String> map = new HashMap<>();
+        map.put("person1",senderId);
+        map.put("person2",receiverId);
+        myContactsDb.setValue(map);
         mAdapter = new MessageListAdapter(this, chatList);
 
         recyclerview_message_list = (RecyclerView) findViewById(R.id.reyclerview_message_list);
