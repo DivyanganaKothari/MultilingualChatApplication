@@ -56,23 +56,59 @@ public class LanguageActivity extends BaseActivity implements View.OnClickListen
         data = new ArrayList<>();
         actaulData = new ArrayList<>();
         data.add(new InfoModel("English"));
-        actaulData.add(new InfoModel("english"));
+        actaulData.add(new InfoModel("en"));
         data.add(new InfoModel("Hindi हिन्दी"));
-        actaulData.add(new InfoModel("hindi"));
-        data.add(new InfoModel("Turkish Türkçe "));
-        actaulData.add(new InfoModel("turkish"));
-        data.add(new InfoModel("Swedish Svenska"));
-        actaulData.add(new InfoModel("swedish"));
-        data.add(new InfoModel("Arabic  اللغة العربي "));
-        actaulData.add(new InfoModel("arabic "));
+        actaulData.add(new InfoModel("hi"));
+        data.add(new InfoModel("Greek "));
+        actaulData.add(new InfoModel("el"));
+        data.add(new InfoModel("Spanish"));
+        actaulData.add(new InfoModel("es"));
+        data.add(new InfoModel("Italian"));
+        actaulData.add(new InfoModel("it "));
         data.add(new InfoModel("French french  "));
-        actaulData.add(new InfoModel("french"));
+        actaulData.add(new InfoModel("fr"));
         data.add(new InfoModel("Chinese  汉语, 漢語, 华语, 華語, or 中文 "));
-        actaulData.add(new InfoModel("chinese"));
-        data.add(new InfoModel("Czech Český Jazyk, Čeština "));
-        actaulData.add(new InfoModel("czech"));
-        data.add(new InfoModel("Japanese 日本語, 日本語 "));
-        actaulData.add(new InfoModel("japanese"));
+        actaulData.add(new InfoModel("zh"));
+        data.add(new InfoModel("German  "));
+        actaulData.add(new InfoModel("de"));
+        data.add(new InfoModel("Portuguese "));
+        actaulData.add(new InfoModel("pt"));
+        data.add(new InfoModel("Japanese"));
+        actaulData.add(new InfoModel("ja"));
+        data.add(new InfoModel("Arabic"));
+        actaulData.add(new InfoModel("ar"));
+        data.add(new InfoModel("Bulgarian"));
+        actaulData.add(new InfoModel("bg"));
+        data.add(new InfoModel("Irish"));
+        actaulData.add(new InfoModel("ga"));
+        data.add(new InfoModel("Korean"));
+        actaulData.add(new InfoModel("ko"));
+        data.add(new InfoModel("Latin"));
+        actaulData.add(new InfoModel("la"));
+        data.add(new InfoModel("Persian"));
+        actaulData.add(new InfoModel("fa"));
+        data.add(new InfoModel("Russian"));
+        actaulData.add(new InfoModel("ru"));
+        data.add(new InfoModel("Uzbek"));
+        actaulData.add(new InfoModel("uz"));
+        data.add(new InfoModel("Swedish"));
+        actaulData.add(new InfoModel("sv"));
+        data.add(new InfoModel("Vietnamese"));
+        actaulData.add(new InfoModel("vi"));
+        data.add(new InfoModel("Albanian"));
+        actaulData.add(new InfoModel("sq"));
+        data.add(new InfoModel("Indonesian"));
+        actaulData.add(new InfoModel("id"));
+        data.add(new InfoModel("Georgian"));
+        actaulData.add(new InfoModel("ka"));
+        data.add(new InfoModel("Danish"));
+        actaulData.add(new InfoModel("da"));
+        data.add(new InfoModel("Romanian"));
+        actaulData.add(new InfoModel("ro"));
+
+
+
+
     }
 
     @Override

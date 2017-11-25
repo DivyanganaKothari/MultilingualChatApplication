@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +25,6 @@ import java.util.List;
 import trainedge.myapplication.R;
 import trainedge.myapplication.activity.HomeActivity;
 import trainedge.myapplication.adapter.ChatAdapter;
-import trainedge.myapplication.model.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,7 +84,7 @@ public class ChatFragment extends Fragment {
         rv_chat = view.findViewById(R.id.rv_chat);
         iv = view.findViewById(R.id.iv);
         tv_name = view.findViewById(R.id.tv_name);
-        final List<User> chatName=new ArrayList<>();
+        final List<String> chatName=new ArrayList<>();
         ChatAdapter chatAdapter=new ChatAdapter(chatName,(HomeActivity)getActivity());
         rv_chat.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
@@ -103,15 +102,17 @@ public class ChatFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
             if(dataSnapshot.hasChildren()){
-                User user = dataSnapshot.getValue(User.class);
-                tv_name.setText(user.name);
-                Glide.with(getActivity()).load(user.photo).into(iv);
+                String user = dataSnapshot.getKey();
+                tv_name.setText(dataSnapshot.getKey());
+                //Glide.with(getActivity()).load(photo).into(iv);
             }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+            if(databaseError==null){
+                Toast.makeText(getActivity(),databaseError.getMessage(),Toast.LENGTH_SHORT).show();
+            }
             }
         });
     }

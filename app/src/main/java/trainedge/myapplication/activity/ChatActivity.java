@@ -1,6 +1,7 @@
 package trainedge.myapplication.activity;
 
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -103,7 +104,11 @@ public class ChatActivity extends AppCompatActivity {
                 chatList.clear();
                 if (dataSnapshot.getChildrenCount() > 0) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        chatList.add(snapshot.getValue(MessageList.class));
+                        if (snapshot.getKey().equals("person1") || snapshot.getKey().equals("person2")) {
+                            continue;
+                        } else {
+                            chatList.add(snapshot.getValue(MessageList.class));
+                        }
                     }
                     mAdapter.notifyDataSetChanged();
                     int size = chatList.size();
@@ -139,7 +144,7 @@ public class ChatActivity extends AppCompatActivity {
     /** Translate a given text between a source and a destination language */
     public String translate(String text,String firstLang,String secondLang) {
         String translated="";
-        String url = String.format("http://mymemory.translated.net/api/get?q=%s!&langpair=%s|%s", text, firstLang, secondLang);
+        String url = String.format("http://mymemory.translated.net/api/get?q=%s!&langpair=%s|%s&key=%s", text, firstLang, secondLang,getResources().getString(R.string.translation_key));
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -162,6 +167,14 @@ public class ChatActivity extends AppCompatActivity {
 
         }
         return translated;
+    }
+    class Translation extends AsyncTask<Object,Void,Void> {
+        @Override
+        protected Void doInBackground(Object... objects) {
+
+
+            return null;
+        }
     }
 }
 
