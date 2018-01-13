@@ -26,7 +26,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -54,6 +53,8 @@ public class ChatActivity extends AppCompatActivity {
     private MessageListAdapter mAdapter;
     private Button btn;
     private String recName;
+    private String url_format;
+    private DatabaseReference myContactsDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,23 +80,18 @@ public class ChatActivity extends AppCompatActivity {
 
         lang_pref = getSharedPreferences("lang_pref", MODE_PRIVATE);
 
-        final DatabaseReference myContactsDb = FirebaseDatabase.getInstance().getReference("messages").child(conv_key);
+        myContactsDb = FirebaseDatabase.getInstance().getReference("messages").child(conv_key);
 
         senderId = currentuser.getUid();
         senderEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         sender_lang = lang_pref.getString("lang_key", "");
-        HashMap<String, String> map = new HashMap<>();
-        map.put("person1",senderId);
-        map.put("person2",receiverId);
-        myContactsDb.setValue(map);
+        myContactsDb.child("person1").setValue(senderId);
+        myContactsDb.child("person2").setValue(receiverId);
         mAdapter = new MessageListAdapter(this, chatList);
 
         recyclerview_message_list = (RecyclerView) findViewById(R.id.reyclerview_message_list);
         recyclerview_message_list.setLayoutManager(new LinearLayoutManager(this));
         recyclerview_message_list.setAdapter(mAdapter);
-
-
-
 
 
         myContactsDb.addValueEventListener(new ValueEventListener() {
@@ -112,7 +108,7 @@ public class ChatActivity extends AppCompatActivity {
                     }
                     mAdapter.notifyDataSetChanged();
                     int size = chatList.size();
-                    recyclerview_message_list.smoothScrollToPosition(size-1);
+                    //recyclerview_message_list.smoothScrollToPosition(size-1);
                 }
             }
 
@@ -132,8 +128,9 @@ public class ChatActivity extends AppCompatActivity {
                     Toast.makeText(ChatActivity.this, "write something", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                MessageList msgTobeSent = new MessageList(receiverId, senderId, Time, content, receiver_lang, sender_lang);
-                myContactsDb.push().setValue(msgTobeSent);
+                MessageList message = new MessageList(receiverId, senderId, Time, content, receiver_lang, sender_lang);
+                new TranslationTask().execute(message);
+                //show progress bar
                 edittext_chatbox.setText("");
 
             }
@@ -141,10 +138,19 @@ public class ChatActivity extends AppCompatActivity {
 
 
     }
-    /** Translate a given text between a source and a destination language */
-    public String translate(String text,String firstLang,String secondLang) {
-        String translated="";
-        String url = String.format("http://mymemory.translated.net/api/get?q=%s!&langpair=%s|%s&key=%s", text, firstLang, secondLang,getResources().getString(R.string.translation_key));
+
+    public void translate(MessageList message) {
+        String translated = "";
+        String original = message.content;
+        String senderLang = message.sender_lang;
+        String recieverLang = message.receiver_lang;
+
+        url_format = "http://mymemory.translated.net/api/get?q=%s!&langpair=%s|%s&key=%s";
+        String url = String.format(url_format,
+                            original,
+                            senderLang,
+                            recieverLang,
+                            getResources().getString(R.string.translation_key));
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -159,20 +165,26 @@ public class ChatActivity extends AppCompatActivity {
             JSONObject jObject = null;
             jObject = new JSONObject(response.body().string());
             JSONObject data = jObject.getJSONObject("responseData");
-            //result.setText(data.getString("translatedText"));
+            translated = data.getString("translatedText");
+            message.setTranslated(translated);
+            myContactsDb.push().setValue(message);
+            //hide progress
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
 
         }
-        return translated;
+
     }
-    class Translation extends AsyncTask<Object,Void,Void> {
+
+    public class TranslationTask extends AsyncTask<MessageList, Void, String> {
+
+
         @Override
-        protected Void doInBackground(Object... objects) {
-
-
+        protected String doInBackground(MessageList... objects) {
+            MessageList message = (MessageList) objects[0];
+            translate(message);
             return null;
         }
     }

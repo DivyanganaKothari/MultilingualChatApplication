@@ -11,6 +11,7 @@ public class MessageList {
     public String content;
     public String receiver_lang;
     public String sender_lang;
+    public String translated ="";
     public MessageList(){
 
     }
@@ -23,5 +24,7 @@ public class MessageList {
         this.sender_lang=sender_lang;
     }
 
-
+    public void setTranslated(String translated) {
+        this.translated = translated;
+    }
 }
