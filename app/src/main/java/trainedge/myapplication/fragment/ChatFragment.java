@@ -2,6 +2,7 @@ package trainedge.myapplication.fragment;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -90,7 +92,7 @@ public class ChatFragment extends Fragment {
         rv_chat = view.findViewById(R.id.rv_chat);
         chatName = new ArrayList<>();
         // final List<User> myContacts = new ArrayList<>();
-        setupChats(chatName);
+
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         //final DatabaseReference allDb = FirebaseDatabase.getInstance().getReference("Users");
         final String emailPart = currentUser.getEmail().split("@")[0];
@@ -106,6 +108,14 @@ public class ChatFragment extends Fragment {
                         }
 
                     }
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            setupChats(chatName);
+                        }
+                    }, 5000);
+
                 }
             }
 
@@ -119,7 +129,7 @@ public class ChatFragment extends Fragment {
     }
 
     private void setupChats(List<ChatModel> chatName) {
-        chatAdapter = new ChatAdapter(chatName,  getActivity());
+        chatAdapter = new ChatAdapter(chatName, getActivity());
         rv_chat.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
         itemAnimator.setAddDuration(1000);
@@ -132,35 +142,41 @@ public class ChatFragment extends Fragment {
         String person1Id = snapshot.child("person1").getValue(String.class);
         String person2Id = snapshot.child("person2").getValue(String.class);
         if (!person1Id.equals(currentUser.getUid())) {
-            findUserById(person1Id,snapshot);
+            findUserById(person1Id, snapshot);
         } else {
-            findUserById(person2Id,snapshot);
+            findUserById(person2Id, snapshot);
         }
     }
 
 
     public void findUserById(final String uid, DataSnapshot snapshot) {
-        final String chatKey = snapshot.getKey();
-        final DatabaseReference users = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+        if (uid == null || snapshot == null) {
+            Toast.makeText(getContext(), "internal error", Toast.LENGTH_SHORT).show();
+        } else {
+            final String chatKey = snapshot.getKey();
+            final DatabaseReference users = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
 
-        users.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChildren()) {
-                    String name = dataSnapshot.child("name").getValue(String.class);
-                    String photo = dataSnapshot.child("photo").getValue(String.class);
+            users.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.hasChildren()) {
+                        String name = dataSnapshot.child("name").getValue(String.class);
+                        String photo = dataSnapshot.child("photo").getValue(String.class);
 
-                    chatName.add(new ChatModel(uid,name,photo,chatKey));
-                    chatAdapter.notifyDataSetChanged();
-                }
-            }
+                        chatName.add(new ChatModel(uid, name, photo, chatKey));
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                if (databaseError == null) {
+                    }
 
                 }
-            }
-        });
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    if (databaseError == null) {
+
+                    }
+                }
+
+            });
+        }
     }
 }

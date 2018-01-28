@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import trainedge.myapplication.R;
@@ -38,11 +40,12 @@ public class ChatAdapter extends RecyclerView.Adapter<Contact_Holder> {
     public void onBindViewHolder(Contact_Holder  holder, int position) {
         final ChatModel data=chatName.get(position);
         holder.tv_name.setText(data.name);
-        //Glide.with(context).load(data.photo).into(holder.iv);
+        Glide.with(context).load(data.photo).into(holder.iv);
         holder.cv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(context, ChatActivity.class);
+                intent.putExtra("conv_key",data.chatKey);
                 context.startActivity(intent);
             }
         });
@@ -50,6 +53,6 @@ public class ChatAdapter extends RecyclerView.Adapter<Contact_Holder> {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return chatName.size();
     }
 }

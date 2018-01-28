@@ -84,6 +84,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
             public void onSuccess(LoginResult loginResult) {
                 //log(loginResult.toString());
                 handleFacebookAccessToken(loginResult.getAccessToken());
+                Toast.makeText(context, "please wait ...", Toast.LENGTH_SHORT).show();
             }
 
 
