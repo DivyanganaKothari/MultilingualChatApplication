@@ -24,8 +24,10 @@
             android:id="@+id/ivSearch"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="right"
             android:layout_weight="1"
-            android:src="@android:drawable/ic_menu_search" />
+            android:src="@android:drawable/ic_menu_search"
+            />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

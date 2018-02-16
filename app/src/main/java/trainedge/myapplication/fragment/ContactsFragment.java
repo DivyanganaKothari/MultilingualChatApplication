@@ -118,7 +118,7 @@ public class ContactsFragment extends Fragment {
 
                     }
                     //hideProgressDialog();
-                    Toast.makeText(getActivity(), "Data has been loaded", Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(getActivity(), "Data has been loaded", Toast.LENGTH_SHORT).show();
                 }
                 isLoaded = true;
             }
@@ -136,7 +136,7 @@ public class ContactsFragment extends Fragment {
                 final String searchTerm = et_search.getText().toString().trim();
                 if (isLoaded) {
                    // showProgressDialog("Finding...");
-                    Toast.makeText(getActivity(), "Finding...", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "Finding...", Toast.LENGTH_SHORT).show();
                     usersDb.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {

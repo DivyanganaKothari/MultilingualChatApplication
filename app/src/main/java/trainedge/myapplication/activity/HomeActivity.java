@@ -1,6 +1,7 @@
 package trainedge.myapplication.activity;
 
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +31,6 @@ import java.util.ArrayList;
 
 import devlight.io.library.ntb.NavigationTabBar;
 import trainedge.myapplication.R;
-import trainedge.myapplication.fragment.ChatFragment;
 import trainedge.myapplication.fragment.ContactsFragment;
 import trainedge.myapplication.fragment.ContactsToChatFragment;
 import trainedge.myapplication.fragment.InviteFragment;
@@ -59,7 +60,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_person_outline_black_24dp),
                         Color.parseColor(colors[0]))
-                        .title("ContactsToAdd")
+                        .title("Contacts")
                         .build()
         );
         models.add(
@@ -71,18 +72,12 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_person_outline_black_24dp),
-                        Color.parseColor(colors[0]))
-                        .title("Contacts")
-                        .build()
-        );
-        models.add(
-                new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_share_black_24dp),
                         Color.parseColor(colors[2]))
                         .title("Invite")
                         .build()
         );
+
         navigationTabBar.setModels(models);
         navigationTabBar.setViewPager(viewPager, 1);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -139,13 +134,13 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         } else if (id == R.id.nav_gallery) {
             viewPager.setCurrentItem(1);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_manage) {
             viewPager.setCurrentItem(2);
 
-        } else if (id == R.id.nav_manage) {
-            viewPager.setCurrentItem(3);
 
-        } else if (id == R.id.nav_share) {
+
+        }
+        else if (id == R.id.nav_share) {
             try {
                 Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invitation_title))
                         .setMessage("Join your friends")
@@ -169,6 +164,31 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
             feedbackIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.mail_feedback_message));
             startActivity(Intent.createChooser(feedbackIntent, getString(R.string.title_send_feedback)));
 
+        } else if (id== R.id.log_out){
+            AlertDialog.Builder builder=new AlertDialog.Builder(HomeActivity.this); //Home is name of the activity
+            builder.setMessage("Do you want to Log Out?");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+
+
+            builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                }
+            });
+
+            AlertDialog alert=builder.create();
+            alert.show();
+
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -188,10 +208,8 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                 case 0:
                     return ContactsFragment.newInstance("", "");
                 case 1:
-                    return ChatFragment.newInstance("", "");
-                case 2:
                     return ContactsToChatFragment.newInstance("", "");
-                case 3:
+                case 2:
                     return InviteFragment.newInstance("", "");
             }
 
@@ -200,7 +218,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
         @Override
         public int getCount() {
-            return 4;
+            return 3;
         }
     }
 

@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         //signup_btn.setOnClickListener(this);
         //Button signin_btn = (Button) findViewById(R.id.signin_btn);
         //signin_btn.setOnClickListener(this);
-        or_tv = (TextView) findViewById(R.id.or_tv);
+        //or_tv = (TextView) findViewById(R.id.or_tv);
 
 
         SignInButton google_sign_in = (SignInButton) findViewById(R.id.google_sign_in);

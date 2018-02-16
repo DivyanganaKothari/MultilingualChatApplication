@@ -135,7 +135,7 @@ public class ContactsToChatFragment extends Fragment {
     private void findContact(DatabaseReference allDb, final List<User> myContacts, final List<String> frdId) {
         if (isLoaded) {
             // showProgressDialog("Finding...");
-            Toast.makeText(getActivity(), "Finding...", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getActivity(), "Finding...", Toast.LENGTH_SHORT).show();
 
             allDb.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
