@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import spencerstudios.com.fab_toast.FabToast;
 import trainedge.myapplication.R;
 import trainedge.myapplication.adapter.ChatAdapter;
 import trainedge.myapplication.model.ChatModel;
@@ -151,7 +151,7 @@ public class ChatFragment extends Fragment {
 
     public void findUserById(final String uid, DataSnapshot snapshot) {
         if (uid == null || snapshot == null) {
-            Toast.makeText(getContext(), "internal error", Toast.LENGTH_SHORT).show();
+            FabToast.makeText(getContext(), "internal error", FabToast.LENGTH_SHORT, FabToast.SUCCESS, FabToast.POSITION_CENTER).show();
         } else {
             final String chatKey = snapshot.getKey();
             final DatabaseReference users = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);

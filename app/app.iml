@@ -91,24 +91,19 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/builds" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/check-manifest" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes-jar" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-runtime-classes" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-safeguard" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-verifier" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-resources" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-support" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaPrecompile" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/lint" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/multi-dex" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/pre-dexed" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/prebuild" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/reload-dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/res" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/restart-dex" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/shaders" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/split-apk" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/splits-support" />
@@ -125,6 +120,7 @@
     <orderEntry type="library" name="com.google.firebase:firebase-iid-11.8.0" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-invites-11.8.0" level="project" />
     <orderEntry type="library" name="com.facebook.android:facebook-applinks-4.30.0" level="project" />
+    <orderEntry type="library" name="de.hdodenhof:circleimageview-2.2.0" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-base-license-11.8.0" level="project" />
     <orderEntry type="library" name="__local_aars__:C.\Users\hp\AppData\Local\Android\sdk\build-tools\27.0.3\renderscript\lib\renderscript-v8.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-auth-license-11.8.0" level="project" />
@@ -181,6 +177,7 @@
     <orderEntry type="library" name="com.parse.bolts:bolts-applinks:1.4.0@jar" level="project" />
     <orderEntry type="library" name="com.facebook.android:facebook-common-4.30.0" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-appinvite-11.8.0" level="project" />
+    <orderEntry type="library" name="com.github.jlmd:AnimatedCircleLoadingView-1.1.5" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-analytics-11.8.0" level="project" />
     <orderEntry type="library" name="com.squareup.okio:okio:1.13.0@jar" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-database-connection-11.8.0" level="project" />
@@ -198,6 +195,7 @@
     <orderEntry type="library" name="com.facebook.android:facebook-messenger-4.30.0" level="project" />
     <orderEntry type="library" name="com.android.support:support-core-utils-27.0.2" level="project" />
     <orderEntry type="library" name="com.facebook.android:facebook-share-4.30.0" level="project" />
+    <orderEntry type="library" name="com.github.Binary-Finery:FabToast-1.0" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-database-11.8.0" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-analytics-license-11.8.0" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-analytics-impl-license-11.8.0" level="project" />

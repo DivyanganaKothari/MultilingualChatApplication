@@ -7,14 +7,6 @@
     android:layout_height="wrap_content"
     android:paddingTop="8dp">
 
-    <ImageView
-        android:id="@+id/image_message_profile"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginLeft="8dp"
-        android:background="@drawable/com_facebook_profile_picture_blank_square"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_message_name"
@@ -24,7 +16,6 @@
         android:layout_marginTop="4dp"
         android:text="John Doe"
         android:textSize="12sp"
-        app:layout_constraintLeft_toRightOf="@+id/image_message_profile"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -38,7 +29,6 @@
         android:padding="8dp"
         android:text="hi man, how are you?"
         android:textColor="#ffffff"
-        app:layout_constraintLeft_toRightOf="@+id/image_message_profile"
         app:layout_constraintTop_toBottomOf="@+id/text_message_name" />
 
     <TextView

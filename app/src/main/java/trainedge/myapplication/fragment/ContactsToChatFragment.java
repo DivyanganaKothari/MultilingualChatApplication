@@ -1,3 +1,4 @@
+
 package trainedge.myapplication.fragment;
 
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import spencerstudios.com.fab_toast.FabToast;
 import trainedge.myapplication.R;
 import trainedge.myapplication.activity.HomeActivity;
 import trainedge.myapplication.adapter.ContactAdapter;
@@ -36,6 +38,7 @@ import trainedge.myapplication.model.User;
  * Use the {@link ContactsToChatFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class ContactsToChatFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -83,8 +86,6 @@ public class ContactsToChatFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_contacts_to_chat, container, false);
         rv1 = view.findViewById(R.id.rv1);
-        ivSearch = view.findViewById(R.id.ivSearch);
-        et_search = view.findViewById(R.id.et_search);
         tv_name = view.findViewById(R.id.tv_name);
         final List<User> myContacts = new ArrayList<>();
         final List<User> contacts = new ArrayList<>();
@@ -121,14 +122,6 @@ public class ContactsToChatFragment extends Fragment {
                 }
             }
         });
-        ivSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String searchTerm = et_search.getText().toString().trim();
-                findContact(allDb, myContacts, frdId);
-            }
-
-        });
         return view;
     }
 
@@ -149,7 +142,7 @@ public class ContactsToChatFragment extends Fragment {
                             }
                         }
                     } else {
-                        Toast.makeText(getActivity(), "could not find data", Toast.LENGTH_SHORT).show();
+                        FabToast.makeText(getActivity(), "could not find data", FabToast.LENGTH_SHORT, FabToast.SUCCESS, FabToast.POSITION_CENTER).show();
                     }
 
                     if (myContacts.size() > 0) {
@@ -160,7 +153,7 @@ public class ContactsToChatFragment extends Fragment {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     if (databaseError != null) {
-                        Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+                        FabToast.makeText(getActivity(), "error", FabToast.LENGTH_SHORT,FabToast.ERROR,FabToast.POSITION_CENTER).show();
                     }
 
                 }

@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import spencerstudios.com.fab_toast.FabToast;
 import trainedge.myapplication.R;
 import trainedge.myapplication.activity.HomeActivity;
 import trainedge.myapplication.adapter.SearchAdapter;
@@ -130,6 +131,7 @@ public class ContactsFragment extends Fragment {
                 }
             }
         });
+        FabToast.makeText(getActivity(), "PRESS THE SEARCH ICON TO SEE YOUR FRIENDS",FabToast.LENGTH_LONG,FabToast.INFORMATION,FabToast.POSITION_CENTER).show();
         ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,6 +170,7 @@ public class ContactsFragment extends Fragment {
 
                         }
 
+
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
                          //   hideProgressDialog();
@@ -175,7 +178,7 @@ public class ContactsFragment extends Fragment {
 
                     });
                 } else {
-                    Toast.makeText(getActivity(), "could not find data", Toast.LENGTH_SHORT).show();
+                    FabToast.makeText(getActivity(), "could not find data", FabToast.LENGTH_SHORT,FabToast.ERROR,FabToast.POSITION_CENTER).show();
                 }
 
             }
@@ -183,6 +186,8 @@ public class ContactsFragment extends Fragment {
 
         return view;
 
+
     }
+
 
 }

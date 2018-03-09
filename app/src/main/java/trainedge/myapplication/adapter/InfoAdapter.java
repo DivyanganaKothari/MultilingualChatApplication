@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -16,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import spencerstudios.com.fab_toast.FabToast;
 import trainedge.myapplication.R;
 import trainedge.myapplication.activity.HomeActivity;
 import trainedge.myapplication.activity.LanguageActivity;
@@ -76,7 +76,7 @@ public class InfoAdapter extends RecyclerView.Adapter<View_Holder> {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 if (databaseError == null) {
-                    Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show();
+                    FabToast.makeText(activity, "Success", FabToast.LENGTH_SHORT,FabToast.SUCCESS, FabToast.POSITION_CENTER).show();
                     SharedPreferences.Editor e = lang_pref.edit();
                     e.putString(LanguageActivity.LANG_KEY, lang_name);
                     e.putBoolean(LanguageActivity.IS_VISITED, true);
@@ -87,7 +87,7 @@ public class InfoAdapter extends RecyclerView.Adapter<View_Holder> {
                     activity.startActivity(home);
                     activity.finish();
                 } else {
-                    Toast.makeText(activity, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    FabToast.makeText(activity, databaseError.getMessage(), FabToast.LENGTH_SHORT,FabToast.SUCCESS,FabToast.POSITION_CENTER).show();
                 }
                 // activity.hideProgressDialog();
             }

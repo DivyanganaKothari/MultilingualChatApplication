@@ -77,7 +77,7 @@ public class SearchAdapter extends RecyclerView.Adapter<Search_Holder> {
                 }
             }
         });
-        btnAdd.setText("added");
+        btnAdd.setText("Added");
     }
 
     @Override

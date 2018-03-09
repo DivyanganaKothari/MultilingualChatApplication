@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mainimg"
+    tools:context="trainedge.myapplication.activity.SignUpActivity">
+
+    <Button
+        android:id="@+id/btn_signup"
+        android:layout_width="156dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/blue_900"
+        android:fontFamily="casual"
+        android:text="SignUp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/link_login"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="56dp"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:hint="Enter Name"
+        android:inputType="textPersonName"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:hint="Enter Email"
+        android:inputType="textEmailAddress"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_name" />
+
+    <EditText
+        android:id="@+id/et_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="36dp"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:hint="Enter Password"
+        android:inputType="textPassword"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_email" />
+
+    <EditText
+        android:id="@+id/et_pass1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="49dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:hint="Re-Enter Password"
+        android:inputType="textPassword"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/link_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_pass"
+        app:layout_constraintVertical_bias="0.4" />
+
+    <Button
+        android:id="@+id/link_login"
+        android:layout_width="141dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="78dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/blue_900"
+        android:fontFamily="casual"
+        android:text="LOGIN"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

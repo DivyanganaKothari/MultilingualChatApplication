@@ -29,8 +29,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight="8"
                 android:background="#0000"
+                android:fontFamily="casual"
                 android:hint="Search Contacts"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:textSize="13sp" />
 
             <ImageView
                 android:id="@+id/ivSearch"

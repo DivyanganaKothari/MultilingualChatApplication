@@ -3,18 +3,15 @@ package trainedge.myapplication.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -26,7 +23,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -36,19 +32,25 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
+import spencerstudios.com.fab_toast.FabToast;
 import trainedge.myapplication.R;
 
-public class MainActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     public static final int RC_SIGN_IN = 9001;
+    private static final int REQUEST_SIGNUP = 0;
     FirebaseAuth.AuthStateListener mAuthListener;
     private CallbackManager mCallbackManager;
     private FirebaseAuth mAuth;
     private GoogleApiClient mGoogleApiClient;
-    //private EditText enter_email;
-    //private EditText enter_pswrd;
-    private TextView or_tv;
+    private EditText enter_email;
+    private TextView tv1;
     private DatabaseReference db;
+    private EditText enter_name;
+    private EditText enter_pswrd;
+    private EditText enter_pswrd1;
+    private Button signin_btn;
+    private Button signup_btn2;
 
 
     @Override
@@ -58,17 +60,19 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_main);
 
+       // enter_name = (EditText)findViewById(R.id.enter_name);
+        enter_pswrd = (EditText)findViewById(R.id.enter_pswrd);
+        enter_email = (EditText) findViewById(R.id.enter_email);
+        //enter_pswrd1 = (EditText) findViewById(R.id.enter_pswrd1);
+        signin_btn = (Button) findViewById(R.id.signin_btn);
+        signin_btn.setOnClickListener(this);
+        signup_btn2 = (Button)findViewById(R.id.signin_btn2);
+        signup_btn2.setOnClickListener(this);
+        tv1 = (TextView) findViewById(R.id.tv1);
 
-        //enter_email = (EditText) findViewById(R.id.enter_email);
-        //enter_pswrd = (EditText) findViewById(R.id.enter_pswrd);
-        //Button signup_btn = (Button) findViewById(R.id.signup_btn);
-        //signup_btn.setOnClickListener(this);
-        //Button signin_btn = (Button) findViewById(R.id.signin_btn);
-        //signin_btn.setOnClickListener(this);
-        //or_tv = (TextView) findViewById(R.id.or_tv);
 
-
-        SignInButton google_sign_in = (SignInButton) findViewById(R.id.google_sign_in);
+        SignInButton google_sign_in = findViewById(R.id.google_sign_in);
+        google_sign_in.setColorScheme(google_sign_in.COLOR_DARK);
         google_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,7 +81,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         });
         //initialize facebook login button
         mCallbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = (LoginButton) findViewById(R.id.button_facebook_login);
+       /* LoginButton loginButton = (LoginButton) findViewById(R.id.button_facebook_login);
         loginButton.setReadPermissions("email", "public_profile");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -101,7 +105,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
                 Toast.makeText(MainActivity.this, "there was this error : " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        //initialize firebase auth
+        //initialize firebase auth*/
         mAuth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -112,7 +116,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
                 .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                        FabToast.makeText(MainActivity.this, "Something went wrong", FabToast.LENGTH_LONG, FabToast.ERROR,  FabToast.POSITION_CENTER).show();
                     }
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
@@ -137,7 +141,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             } else {
-                Toast.makeText(MainActivity.this, "Auth went wrong", Toast.LENGTH_SHORT).show();
+                FabToast.makeText(MainActivity.this, "Auth went wrong", FabToast.LENGTH_SHORT, FabToast.ERROR, FabToast.POSITION_CENTER).show();
             }
         }
     }
@@ -158,7 +162,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
                             // If sign in fails, display a message to the user.
                            // log(task.getException().getMessage());
                             //og("failed");
-                            Toast.makeText(context, "Authentication Failed", Toast.LENGTH_SHORT).show();
+                            FabToast.makeText(context, "Authentication Failed", FabToast.LENGTH_SHORT, FabToast.ERROR, FabToast.POSITION_CENTER).show();
                             updateUI(null);
                         }
 
@@ -168,7 +172,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
     }
 
 
-    private void handleFacebookAccessToken(AccessToken token) {
+    /*private void handleFacebookAccessToken(AccessToken token) {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -178,11 +182,12 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             saveToDatabase(user);
-
                         } else {
                             // If sign in fails, display a message to the user.
                             //log("failed" + task.getException().getMessage());
-                            Toast.makeText(context, "Authentication Failed"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            String message = task.getException().getMessage();
+                            Toast.makeText(context, "Authentication Failed"+ message, Toast.LENGTH_SHORT).show();
+                            Log.d("facebook",message);
                             updateUI(null);
                         }
 
@@ -192,7 +197,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
                 });
 
 
-    }
+    }*/
     private void saveToDatabase(final FirebaseUser user) {
         db = FirebaseDatabase.getInstance().getReference("Users");
         HashMap<String, Object> map=new HashMap<>();
@@ -204,7 +209,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 if (databaseError == null) {
-                    Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                    FabToast.makeText(MainActivity.this, "Welcome", FabToast.LENGTH_SHORT, FabToast.SUCCESS, FabToast.POSITION_CENTER).show();
                     hideProgressDialog();
                     updateUI(user);
 
@@ -214,14 +219,16 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
 
     }
 
+
+
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
-    }
 
+    }
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser != null) {
             Intent intent = new Intent(MainActivity.this,LanguageActivity.class);
@@ -229,14 +236,13 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
             finish();
         }
     }
-
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         message(connectionResult.getErrorMessage());
     }
 
 
- /*   @Override
+  /*  @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
@@ -257,8 +263,11 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
-                            message(task.getException().getMessage());
-                        } else {
+                            Log.w("unable to LogIn", "signInWithEmail:failed", task.getException());
+                            FabToast.makeText(MainActivity.this, "Failed to LogIn",
+                                    FabToast.LENGTH_SHORT, FabToast.SUCCESS, FabToast.POSITION_CENTER).show();
+                        }
+                        else {
                             Intent intent = new Intent(MainActivity.this, LanguageActivity.class);
                             startActivity(intent);
                             finish();
@@ -273,20 +282,46 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
     private void SignUp() {
         String email = enter_email.getText().toString();
         String pass = enter_pswrd.getText().toString();
+        String name = enter_name.getText().toString();
+        String repass = enter_pswrd1.getText().toString();
+        if (name.isEmpty()) {
+            enter_name.setError("Required to fill NAME");
+            return;
+        }
         if (email.isEmpty()) {
-            enter_email.setText("fill email");
+            enter_email.setError("Required to fill Email");
             return;
         }
         if (pass.isEmpty()) {
-            enter_pswrd.setText("fill password");
+            enter_pswrd.setError("Fill Passwword");
             return;
         }
+        if (!pass.equals(repass)) {
+            enter_pswrd1.setError("Password doesn't match");
+            return;
+        }
+        matcher = Pattern.compile(PASSWORD_PATTERN).matcher(pass);
+
+
+        if (!matcher.matches()) {
+            enter_pswrd.setError(
+                    "    must contains one digit from 0-9\n" +
+                            "     must contains one lowercase characters\n" +
+                            "     must contains one uppercase characters\n" +
+                            "     must contains one special symbols in the list \"@#$%\"\n" +
+                            "     match anything with previous condition checking\n" +
+                            "    length at least 6 characters and maximum of 20");
+            return;
+        }
+
         mAuth.createUserWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d("SignUp successfull", "createUserWithEmail:onComplete:" + task.isSuccessful());
                         if (!task.isSuccessful()) {
-                            message(task.getException().getMessage());
+                            FabToast.makeText(MainActivity.this, "SignUp Failed!Retry" + task.getException(),
+                                    FabToast.LENGTH_SHORT, FabToast.SUCCESS, FabToast.POSITION_CENTER).show();
                         } else {
                             Intent intent = new Intent(MainActivity.this, LanguageActivity.class);
                             startActivity(intent);
@@ -297,4 +332,59 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
     }*/
 
 
+    public void onClick(View view) {
+        int id=view.getId();
+
+        if (id==R.id.google_sign_in) {
+            signIn();
+        }
+        if (id==R.id.signin_btn){
+            String email=enter_email.getText().toString();
+            String password = enter_pswrd.getText().toString();
+
+            if (email.isEmpty()) {
+                enter_email.setError("Required to fill Email");
+                return;
+            }
+            if (password.isEmpty()) {
+                enter_pswrd.setError("Fill Passwword");
+                return;
+            }
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+
+                            // If sign in fails, display a message to the user. If sign in succeeds
+                            // the auth state listener will be notified and logic to handle the
+                            // signed in user can be handled in the listener.
+                            if (!task.isSuccessful()) {
+
+                                Log.w("unable to LogIn", "signInWithEmail:failed", task.getException());
+                                FabToast.makeText(MainActivity.this, "Failed to LogIn",
+                                        FabToast.LENGTH_SHORT,FabToast.ERROR,FabToast.POSITION_CENTER).show();
+                            }
+                            else {
+                                Intent intent = new Intent(MainActivity.this, LanguageActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                        }
+                    });
+        }
+
+        if (id==R.id.signin_btn2){
+            Intent intent=new Intent(MainActivity.this,SignUpActivity.class);
+            startActivityForResult(intent, REQUEST_SIGNUP);
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
 }

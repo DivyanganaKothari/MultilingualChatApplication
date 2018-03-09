@@ -58,8 +58,12 @@ dependencies {
     compile 'com.daimajia.easing:library:1.0.0@aar'
     compile 'com.daimajia.androidanimations:library:1.1.2@aar'
     compile 'com.daimajia.androidviewhover:library:1.0.4@aar'
+    compile 'com.github.Binary-Finery:FabToast:1.0'
     //compile 'com.victor:lib:1.0.4'
     testCompile 'junit:junit:4.12'
+    compile 'de.hdodenhof:circleimageview:2.2.0'
+    //compile 'com.ms-square:etsyblur:0.2.1'
+    compile 'com.github.jlmd:AnimatedCircleLoadingView:1.1.5@aar'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
     compile 'com.jakewharton:butterknife:8.7.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
@@ -77,6 +81,8 @@ configurations.all {
         }*/
     }
 }
+
+
 
 
 

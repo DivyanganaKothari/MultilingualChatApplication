@@ -31,19 +31,23 @@
             android:layout_marginRight="16dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
+            android:fontFamily="casual"
             android:hint="Enter message"
-            android:maxLines="6"/>
+            android:maxLines="6" />
 
         <Button
             android:id="@+id/buttonSend"
             android:layout_width="64dp"
             android:layout_height="48dp"
             android:layout_gravity="bottom"
-            android:background="?attr/selectableItemBackground"
+            android:background="@color/blue_100"
             android:clickable="true"
+            android:fontFamily="casual"
             android:gravity="center"
             android:text="SEND"
-            android:textSize="14dp" />
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
@@ -53,11 +57,11 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="15dp"
         android:defaultFocusHighlightEnabled="false"
         android:focusable="auto"
         android:focusableInTouchMode="true"
-        android:paddingTop="30dp"
+        android:paddingTop="50dp"
         app:layout_constraintBottom_toTopOf="@+id/layout_chatbox"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -65,6 +69,8 @@
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1"></android.support.v7.widget.RecyclerView>
+        tools:layout_constraintTop_creator="1">
+
+    </android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>

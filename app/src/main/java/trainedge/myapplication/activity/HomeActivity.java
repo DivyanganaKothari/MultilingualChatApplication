@@ -164,7 +164,8 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
             feedbackIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.mail_feedback_message));
             startActivity(Intent.createChooser(feedbackIntent, getString(R.string.title_send_feedback)));
 
-        } else if (id== R.id.log_out){
+        }
+        else if (id== R.id.log_out){
             AlertDialog.Builder builder=new AlertDialog.Builder(HomeActivity.this); //Home is name of the activity
             builder.setMessage("Do you want to Log Out?");
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

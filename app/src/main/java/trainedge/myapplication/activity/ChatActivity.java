@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,6 +30,7 @@ import java.util.List;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import spencerstudios.com.fab_toast.FabToast;
 import trainedge.myapplication.R;
 import trainedge.myapplication.adapter.MessageListAdapter;
 import trainedge.myapplication.model.MessageList;
@@ -125,7 +125,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 String content = edittext_chatbox.getText().toString();
                 if (content.isEmpty()) {
-                    Toast.makeText(ChatActivity.this, "write something", Toast.LENGTH_SHORT).show();
+                    FabToast.makeText(ChatActivity.this, "write something", FabToast.LENGTH_SHORT, FabToast.SUCCESS, FabToast.POSITION_CENTER).show();
                     return;
                 }
                 MessageList message = new MessageList(receiverId, senderId, Time, content, receiver_lang, sender_lang);

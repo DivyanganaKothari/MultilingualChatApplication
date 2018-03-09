@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.github.jlmd.animatedcircleloadingview.AnimatedCircleLoadingView;
+
 /**
  * Created by hp on 04-08-2017.
  */
@@ -22,11 +24,10 @@ public class BaseActivity extends AppCompatActivity {
     public Context context = this;
 
     public ProgressDialog dialog;
+    private AnimatedCircleLoadingView animatedCircleLoadingView;
 
 
     public void showProgressDialog(String msg) {
-
-
 
         dialog = new ProgressDialog(this);
         dialog.setMessage(msg);
@@ -34,6 +35,48 @@ public class BaseActivity extends AppCompatActivity {
         dialog.show();
 
     }
+
+  /*  private void startLoading() {
+        animatedCircleLoadingView.startDeterminate();
+    }
+
+    private void startPercentMockThread() {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1500);
+                    for (int i = 0; i <= 100; i++) {
+                        Thread.sleep(65);
+                        changePercent(i);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        new Thread(runnable).start();
+    }
+
+    private void changePercent(final int percent) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                animatedCircleLoadingView.setPercent(percent);
+            }
+        });
+    }
+
+    public void resetLoading() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                animatedCircleLoadingView.resetLoading();
+            }
+        });
+    }
+
+*/
 
     public void hideProgressDialog() {
         if (dialog != null) {
@@ -81,6 +124,7 @@ public class BaseActivity extends AppCompatActivity {
         log.d("trainedge.myapplication", data);
 
     }
+
 
 
 }

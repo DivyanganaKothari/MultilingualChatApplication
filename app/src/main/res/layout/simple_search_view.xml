@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
+    android:background="@drawable/selectors"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground">
@@ -15,6 +16,7 @@
         android:id="@+id/relative"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/brown_50"
         android:orientation="horizontal"
         android:padding="8dp"
         tools:layout_editor_absoluteX="8dp"
@@ -54,21 +56,13 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@mipmap/ic_launcher"
-            tools:layout_constraintLeft_creator="1" />
-
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@mipmap/ic_launcher"
+            app:civ_border_color="#fffcfc"
+            app:civ_border_width="2dp" />
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>
 
