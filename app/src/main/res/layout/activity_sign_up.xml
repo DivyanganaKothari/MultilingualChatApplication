@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/mainimg"
+    android:background="@color/blue_100"
     tools:context="trainedge.myapplication.activity.SignUpActivity">
 
     <Button
@@ -12,7 +12,7 @@
         android:layout_width="156dp"
         android:layout_height="51dp"
         android:layout_marginStart="16dp"
-        android:background="@color/blue_900"
+        android:background="@drawable/rounded_rectangle_green"
         android:fontFamily="casual"
         android:text="SignUp"
         android:textSize="20sp"
@@ -22,75 +22,89 @@
 
     <EditText
         android:id="@+id/et_name"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_width="289dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="35dp"
         android:layout_marginEnd="36dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:fontFamily="casual"
         android:hint="Enter Name"
         android:inputType="textPersonName"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/et_email"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/et_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="289dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="36dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="35dp"
         android:ems="10"
         android:fontFamily="casual"
         android:hint="Enter Email"
         android:inputType="textEmailAddress"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/et_pass"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_name" />
 
     <EditText
         android:id="@+id/et_pass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="289dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="2dp"
         android:layout_marginEnd="36dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:fontFamily="casual"
         android:hint="Enter Password"
         android:inputType="textPassword"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/et_pass1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_email" />
 
     <EditText
         android:id="@+id/et_pass1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="49dp"
+        android:layout_width="289dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="4dp"
         android:layout_marginEnd="36dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="34dp"
         android:ems="10"
         android:fontFamily="casual"
         android:hint="Re-Enter Password"
         android:inputType="textPassword"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/link_login"
+        app:layout_constraintBottom_toTopOf="@+id/btn_signup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_pass"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_pass" />
 
     <Button
         android:id="@+id/link_login"
-        android:layout_width="141dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="78dp"
+        android:layout_width="156dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="76dp"
         android:layout_marginEnd="16dp"
-        android:background="@color/blue_900"
+        android:layout_marginStart="40dp"
+        android:background="@drawable/rounded_rectangle_green"
         android:fontFamily="casual"
         android:text="LOGIN"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_signup" />
 
 </android.support.constraint.ConstraintLayout>

@@ -134,11 +134,12 @@ public class SignUpActivity extends BaseActivity {
 
                             FabToast.makeText(SignUpActivity.this, "SignUp Failed! Try Again" + task.getException(),
                                     FabToast.LENGTH_SHORT,FabToast.ERROR,FabToast.POSITION_CENTER).show();
+                            updateUI(null);
                         } else {
 
                             FabToast.makeText(SignUpActivity.this,"User Successfully Registered! Login Again", FabToast.LENGTH_SHORT,FabToast.SUCCESS,FabToast.POSITION_CENTER).show();
-                            Intent i=new Intent(SignUpActivity.this, MainActivity.class);
-                            startActivity(i);
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
                             // ...
                         }
                     }
@@ -156,8 +157,20 @@ public class SignUpActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
     }
+
+    private void updateUI(FirebaseUser currentUser) {
+
+        if (currentUser != null) {
+            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
     @Override
     public void onStop() {
         super.onStop();

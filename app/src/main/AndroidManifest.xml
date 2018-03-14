@@ -8,15 +8,15 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo3"
-        android:label="MyApplication"
-        android:roundIcon="@drawable/logo3"
+        android:icon="@drawable/logo9"
+        android:label="ChatLingual"
+        android:roundIcon="@drawable/logo9"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:label">
         <activity
             android:name=".activity.SplashScreen"
-            android:label="MyApplication"
+            android:label="ChatLingual"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -28,7 +28,7 @@
         <activity android:name=".activity.MainActivity" />
         <activity
             android:name=".activity.HomeActivity"
-            android:label="@string/title_activity_home"
+            android:label="ChatLingual"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
@@ -75,7 +75,7 @@
         <activity android:name=".adapter.SearchAdapter" />
         <activity
             android:name=".activity.AboutActivity"
-            android:label="@string/title_activity_about"
+            android:label="ChatLingual"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.DemoActivity"

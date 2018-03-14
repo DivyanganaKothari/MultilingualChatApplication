@@ -97,7 +97,7 @@ public class ContactsFragment extends Fragment {
         et_search = view.findViewById(R.id.et_search);
         ivSearch = view.findViewById(R.id.ivSearch);
 
-        final SearchAdapter sAdapter = new SearchAdapter(data,(HomeActivity)getActivity());
+        final SearchAdapter sAdapter = new SearchAdapter(data, (HomeActivity) getActivity());
         rv1.setAdapter(sAdapter);
         rv1.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
@@ -119,7 +119,7 @@ public class ContactsFragment extends Fragment {
 
                     }
                     //hideProgressDialog();
-                 //   Toast.makeText(getActivity(), "Data has been loaded", Toast.LENGTH_SHORT).show();
+                    //   Toast.makeText(getActivity(), "Data has been loaded", Toast.LENGTH_SHORT).show();
                 }
                 isLoaded = true;
             }
@@ -131,54 +131,21 @@ public class ContactsFragment extends Fragment {
                 }
             }
         });
-        FabToast.makeText(getActivity(), "PRESS THE SEARCH ICON TO SEE YOUR FRIENDS",FabToast.LENGTH_LONG,FabToast.INFORMATION,FabToast.POSITION_CENTER).show();
+        FabToast.makeText(getActivity(), "PRESS THE SEARCH ICON TO SEE YOUR FRIENDS", FabToast.LENGTH_LONG, FabToast.INFORMATION, FabToast.POSITION_CENTER).show();
         ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String searchTerm = et_search.getText().toString().trim();
                 if (isLoaded) {
-                   // showProgressDialog("Finding...");
+                    // showProgressDialog("Finding...");
                     //Toast.makeText(getActivity(), "Finding...", Toast.LENGTH_SHORT).show();
-                    usersDb.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            int pos = 0;
-                            data.clear();
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                boolean isPresent = false;
-                                String email = snapshot.child("email").getValue(String.class);
-                                String name = snapshot.child("name").getValue(String.class);
-                                String photo = snapshot.child("photo").getValue(String.class);
-                                String lang=snapshot.child("Language").getValue(String.class);
-                                String id = snapshot.getKey();
-                                for (int i = 0; i < loadMyContacts.size(); i++) {
-                                    if (loadMyContacts.get(i).equals (id)) {
-                                        isPresent = true;
-                                    }
-                                }
-                                if (email != null && email.contains(searchTerm) && !email.equals(currentUser.getEmail())&& !isPresent) {
-                                    //add to arraylist
-                                    sAdapter.insert(pos, new User(name, email, id, photo,lang));
-                                }
-                                pos++;
-                            }
-                            if (data.size() == 0) {
-                                data.clear();
-                                sAdapter.notifyDataSetChanged();
-                            }
-                           // hideProgressDialog();
-
-                        }
-
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                         //   hideProgressDialog();
-                        }
-
-                    });
+                    try {
+                        fetchData(searchTerm, usersDb, loadMyContacts, currentUser, sAdapter);
+                    } catch (Exception e) {
+                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    FabToast.makeText(getActivity(), "could not find data", FabToast.LENGTH_SHORT,FabToast.ERROR,FabToast.POSITION_CENTER).show();
+                    FabToast.makeText(getActivity(), "could not find data", FabToast.LENGTH_SHORT, FabToast.ERROR, FabToast.POSITION_CENTER).show();
                 }
 
             }
@@ -187,6 +154,53 @@ public class ContactsFragment extends Fragment {
         return view;
 
 
+    }
+
+    private void fetchData(final String searchTerm, DatabaseReference usersDb, final List<String> loadMyContacts, final FirebaseUser currentUser, final SearchAdapter sAdapter) {
+        usersDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int pos = 0;
+                data.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    boolean isPresent = false;
+                    String email = snapshot.child("email").getValue(String.class);
+                    String name = snapshot.child("name").getValue(String.class);
+                    String photo = snapshot.child("photo").getValue(String.class);
+                    String lang = snapshot.child("Language").getValue(String.class);
+                    String id = snapshot.getKey();
+                    for (int i = 0; i < loadMyContacts.size(); i++) {
+                        if (loadMyContacts.get(i).equals(id)) {
+                            isPresent = true;
+                        }
+                    }
+                    try {
+                        if (email != null && email.contains(searchTerm) && !email.equals(currentUser.getEmail()) && !isPresent) {
+                            //add to arraylist
+                            sAdapter.insert(pos, new User(name, email, id, photo, lang));
+                        }
+                        pos++;
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if (data.size() == 0) {
+                    data.clear();
+                    sAdapter.notifyDataSetChanged();
+                }
+                // hideProgressDialog();
+
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //   hideProgressDialog();
+            }
+
+        });
     }
 
 

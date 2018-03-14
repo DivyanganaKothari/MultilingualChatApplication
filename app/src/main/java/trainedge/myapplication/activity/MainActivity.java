@@ -155,7 +155,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            showProgressDialog("Welcome");
+                            //showProgressDialog("Welcome");
                             saveToDatabase(user);
 
                         } else {
@@ -209,7 +209,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 if (databaseError == null) {
-                    FabToast.makeText(MainActivity.this, "Welcome", FabToast.LENGTH_SHORT, FabToast.SUCCESS, FabToast.POSITION_CENTER).show();
+                   // FabToast.makeText(MainActivity.this, "Welcome", FabToast.LENGTH_SHORT, FabToast.SUCCESS, FabToast.POSITION_CENTER).show();
                     hideProgressDialog();
                     updateUI(user);
 

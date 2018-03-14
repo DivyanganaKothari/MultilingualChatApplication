@@ -27,7 +27,7 @@ public class SplashScreen extends Activity {
 
         mprogressBar = (ProgressBar) findViewById(R.id.progressBar);
         ObjectAnimator anim = ObjectAnimator.ofInt(mprogressBar, "progress", 0, 100);
-        anim.setDuration(3000);
+        anim.setDuration(2000);
         anim.setInterpolator(new DecelerateInterpolator());
         anim.start();
 
@@ -41,7 +41,7 @@ public class SplashScreen extends Activity {
                 finish();
 
             }
-        },3000);
+        },4000);
     }
     }
 
