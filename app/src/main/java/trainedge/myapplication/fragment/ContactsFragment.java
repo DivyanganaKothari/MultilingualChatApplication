@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,8 +98,6 @@ public class ContactsFragment extends Fragment {
         et_search = view.findViewById(R.id.et_search);
         ivSearch = view.findViewById(R.id.ivSearch);
 
-        final SearchAdapter sAdapter = new SearchAdapter(data, (HomeActivity) getActivity());
-        rv1.setAdapter(sAdapter);
         rv1.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
         itemAnimator.setAddDuration(1000);
@@ -127,7 +126,7 @@ public class ContactsFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 if (databaseError != null) {
-                    Toast.makeText(getActivity(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+              //      Toast.makeText(getActivity(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -140,7 +139,7 @@ public class ContactsFragment extends Fragment {
                     // showProgressDialog("Finding...");
                     //Toast.makeText(getActivity(), "Finding...", Toast.LENGTH_SHORT).show();
                     try {
-                        fetchData(searchTerm, usersDb, loadMyContacts, currentUser, sAdapter);
+                        fetchData(searchTerm, usersDb, loadMyContacts, currentUser);
                     } catch (Exception e) {
                         Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -156,7 +155,7 @@ public class ContactsFragment extends Fragment {
 
     }
 
-    private void fetchData(final String searchTerm, DatabaseReference usersDb, final List<String> loadMyContacts, final FirebaseUser currentUser, final SearchAdapter sAdapter) {
+    private void fetchData(final String searchTerm, DatabaseReference usersDb, final List<String> loadMyContacts, final FirebaseUser currentUser) {
         usersDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -177,18 +176,22 @@ public class ContactsFragment extends Fragment {
                     try {
                         if (email != null && email.contains(searchTerm) && !email.equals(currentUser.getEmail()) && !isPresent) {
                             //add to arraylist
-                            sAdapter.insert(pos, new User(name, email, id, photo, lang));
+                            data.add(new User(name, email, id, photo, lang));
                         }
                         pos++;
-
+                        Log.d("Appp",pos+email);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
 
+
                 if (data.size() == 0) {
                     data.clear();
-                    sAdapter.notifyDataSetChanged();
+                    FabToast.makeText(getActivity(), "no person found", FabToast.LENGTH_SHORT,FabToast.ERROR,FabToast.POSITION_CENTER).show();
+                }else {
+                    final SearchAdapter sAdapter = new SearchAdapter(data, (HomeActivity) getActivity());
+                    rv1.setAdapter(sAdapter);
                 }
                 // hideProgressDialog();
 

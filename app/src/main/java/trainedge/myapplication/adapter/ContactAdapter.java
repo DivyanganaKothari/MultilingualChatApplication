@@ -31,7 +31,7 @@ public class ContactAdapter extends RecyclerView.Adapter<Contact_Holder> {
     //public static final String id_key="trainedge.demotraining";
     List<User> list;
     HomeActivity context;
-    boolean keysLoaded=false;
+    boolean keysLoaded = false;
 
     public ContactAdapter(List<User> list, HomeActivity context) {
         this.list = list;
@@ -55,42 +55,39 @@ public class ContactAdapter extends RecyclerView.Adapter<Contact_Holder> {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(context, ChatActivity.class);
-                Bundle extras=new Bundle();
-                extras.putString("id",data.id);
-                extras.putString("email",data.email);
-                extras.putString("lang",data.language);
-                extras.putString("name",data.name);
+                Bundle extras = new Bundle();
+                extras.putString("id", data.id);
+                extras.putString("email", data.email);
+                extras.putString("lang", data.language);
+                extras.putString("name", data.name);
                 intent1.putExtras(extras);
-                ConverstationNodeKey(FirebaseAuth.getInstance().getCurrentUser().getEmail(),data.email,intent1);
+                ConverstationNodeKey(FirebaseAuth.getInstance().getCurrentUser().getEmail(), data.email, intent1);
 
             }
         });
     }
 
     private void ConverstationNodeKey(String senderEmail, String receiverEmail1, final Intent intent1) {
-       final String testNode1 = concatEmails(senderEmail, receiverEmail1);
+        final String testNode1 = concatEmails(senderEmail, receiverEmail1);
         final String testNode2 = concatEmails(receiverEmail1, senderEmail);
         FirebaseDatabase.getInstance().getReference("messages").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String key=null;
-                if(dataSnapshot.hasChildren()){
-                    if(dataSnapshot.hasChild(testNode1)){
-                        key=testNode1;
+                String key = null;
+                if (dataSnapshot.hasChildren()) {
+                    if (dataSnapshot.hasChild(testNode1)) {
+                        key = testNode1;
+                    } else if (dataSnapshot.hasChild(testNode2)) {
+                        key = testNode2;
+                    } else {
+                        key = testNode1;
                     }
-                    else if(dataSnapshot.hasChild(testNode2)){
-                        key=testNode2;
-                    }
-                    else {
-                        key=testNode1;
-                    }
+                } else {
+                    key = testNode1;
                 }
-                else {
-                    key=testNode1;
-                }
-                intent1.putExtra("conv_key",key);
+                intent1.putExtra("conv_key", key);
                 context.startActivity(intent1);
-                keysLoaded=true;
+                keysLoaded = true;
             }
 
             @Override
@@ -101,9 +98,9 @@ public class ContactAdapter extends RecyclerView.Adapter<Contact_Holder> {
     }
 
     private String concatEmails(String senderEmail, String receiverEmail) {
-        String temp=senderEmail+receiverEmail;
-        temp=temp.replace('.','_');
-        temp=temp.replace('@','_');
+        String temp = senderEmail + receiverEmail;
+        temp = temp.replace('.', '_');
+        temp = temp.replace('@', '_');
         return temp;
     }
 
@@ -112,7 +109,8 @@ public class ContactAdapter extends RecyclerView.Adapter<Contact_Holder> {
         return list.size();
     }
 
-    public void insert(int position, User data) {
+    public void insert(int position, User data) throws Exception{
+
         list.add(data);
         notifyItemInserted(position);
     }
