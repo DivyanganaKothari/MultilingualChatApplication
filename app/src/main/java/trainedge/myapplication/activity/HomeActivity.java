@@ -53,6 +53,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         viewPager = (ViewPager) findViewById(R.id.vp_horizontal_ntb);
         viewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
         // initUI();
+
         final String[] colors = getResources().getStringArray(R.array.default_preview);
 
         final ArrayList<NavigationTabBar.Model> models = new ArrayList<>();

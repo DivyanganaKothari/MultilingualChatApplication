@@ -26,13 +26,16 @@ import trainedge.myapplication.model.User;
  */
 
 public class SearchAdapter extends RecyclerView.Adapter<Search_Holder> {
-    private final FirebaseUser currentUser;
-    private final DatabaseReference invitedUser;
+
    // List<User> list = Collections.emptyList();
    List<User> list;
     HomeActivity context;
+    private  FirebaseUser currentUser;
+    private  DatabaseReference invitedUser;
     private DatabaseReference ContactChoice;
 
+
+    public SearchAdapter(){}
     public SearchAdapter(List<User> list, HomeActivity context) {
         this.list = list;
         this.context = context;

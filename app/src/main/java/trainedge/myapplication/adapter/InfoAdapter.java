@@ -24,16 +24,17 @@ import trainedge.myapplication.model.InfoModel;
 
 import static android.content.Context.MODE_PRIVATE;
 
+
 public class InfoAdapter extends RecyclerView.Adapter<View_Holder> {
 
-    //Context context;
-    private final LanguageActivity activity;
-    private final ArrayList<InfoModel> actualData;
+    public DatabaseReference languageChoice;
+    public SharedPreferences lang_pref;
+    ArrayList<InfoModel> actualData;
     ArrayList<InfoModel> data;
+    //Context context;
+    private  LanguageActivity activity;
 
-
-    private DatabaseReference languageChoice;
-    private SharedPreferences lang_pref;
+    public InfoAdapter(){}
 
 
     public InfoAdapter(LanguageActivity activity, ArrayList<InfoModel> data, ArrayList<InfoModel> actualData) {

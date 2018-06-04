@@ -1,5 +1,6 @@
 package trainedge.myapplication.activity;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
@@ -25,6 +26,7 @@ public class InviteActivity extends BaseActivity implements View.OnClickListener
     private Button btn_rate;
     private Button btn_about;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

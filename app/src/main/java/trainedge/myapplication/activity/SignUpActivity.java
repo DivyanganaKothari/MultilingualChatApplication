@@ -57,7 +57,7 @@ public class SignUpActivity extends BaseActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Intent i = new Intent(SignUpActivity.this, HomeActivity.class);
+                    Intent i = new Intent(SignUpActivity.this, LanguageActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
                 }
@@ -165,7 +165,7 @@ public class SignUpActivity extends BaseActivity {
     private void updateUI(FirebaseUser currentUser) {
 
         if (currentUser != null) {
-            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+            Intent intent = new Intent(SignUpActivity.this, LanguageActivity.class);
             startActivity(intent);
             finish();
         }

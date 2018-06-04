@@ -4,6 +4,8 @@ public class InfoModel {
 
         public String title;
 
+    public InfoModel(){}
+
         public InfoModel(String title) {
             this.title = title;
 
